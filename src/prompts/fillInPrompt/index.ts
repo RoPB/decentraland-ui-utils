@@ -11,7 +11,7 @@ import resources, { buttonIconPos, setSection } from '../../utils/resources'
  * Displays a prompt window with a field that can be filled in
  *
  * @param  {string} title: Notification string
- * @param {(e:string) => void} onAccept: Function that gets executed if player clicks button
+* @param {(e:string) => Promise<boolean>} onAccept: Function that gets executed if player clicks button
  * @param  {string} acceptLabel: String to go in the accept button
  * @param  {string} placeholder: Text to display as placeholder in the fill in box
  * @param {boolean} useDarkTheme: Switch to the dark theme
@@ -23,7 +23,7 @@ export class FillInPrompt extends Entity {
   buttonLabel: UIText
   icon: UIImage
   closeIcon: UIImage
-  onAccept: (e: string) => void
+  onAccept: (e: string) => Promise<boolean>
   EButtonAction: () => void | Subscription[]
   fillInBox: UIInputText
   UIOpenTime: number
@@ -31,7 +31,7 @@ export class FillInPrompt extends Entity {
   background: UIImage
   constructor(
     title: string,
-    onAccept: (e: string) => void,
+    onAccept: (e: string) => Promise<boolean>,
     acceptLabel?: string,
     placeholder?: string,
     useDarkTheme?: boolean
@@ -163,11 +163,10 @@ export class FillInPrompt extends Entity {
   /**
    * Hides the prompt, but first reads the provided value and runs the onAccept function with it
    */
-  public accept(submittedText: string): void {
-    this.onAccept(submittedText)
-
-    this.hide()
-    //Input.instance.unsubscribe('BUTTON_DOWN', ActionButton.PRIMARY, this.EButtonAction)
+   public async accept(submittedText: string): Promise<void> {
+    const executeSuccessfuly = await this.onAccept(submittedText)
+    if(executeSuccessfuly)
+      this.hide()
   }
 
   /**
