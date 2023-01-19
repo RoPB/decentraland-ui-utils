@@ -1472,7 +1472,7 @@
             _this.buttonLabel.value = acceptLabel ? acceptLabel : 'Submit';
             _this.buttonLabel.hTextAlign = 'center';
             _this.buttonLabel.vTextAlign = 'center';
-            _this.buttonLabel.positionX = 30;
+            //this.buttonLabel.positionX = 30 SI VA CON EL ICONO (E)
             _this.buttonLabel.fontSize = 18;
             _this.buttonLabel.font = SFFont;
             _this.buttonLabel.color = Color4.White();

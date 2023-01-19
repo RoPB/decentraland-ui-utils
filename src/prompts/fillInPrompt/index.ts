@@ -109,7 +109,7 @@ export class FillInPrompt extends Entity {
     this.buttonLabel.value = acceptLabel ? acceptLabel : 'Submit'
     this.buttonLabel.hTextAlign = 'center'
     this.buttonLabel.vTextAlign = 'center'
-    this.buttonLabel.positionX = 30
+    //this.buttonLabel.positionX = 30 SI VA CON EL ICONO (E)
     this.buttonLabel.fontSize = 18
     this.buttonLabel.font = SFFont
     this.buttonLabel.color = Color4.White()
