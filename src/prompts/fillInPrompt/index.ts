@@ -95,14 +95,15 @@ export class FillInPrompt extends Entity {
     this.button.height = 46
     setSection(this.button, resources.buttons.buttonE)
 
-    this.icon = new UIImage(this.button, useDarkTheme == true ? darkTheme : lightTheme)
-    this.icon.width = 26
-    this.icon.height = 26
-    this.icon.hAlign = 'center'
-    this.icon.vAlign = 'center'
-    this.icon.isPointerBlocker = false
-    setSection(this.icon, resources.buttonLabels.E)
-    this.icon.positionX = buttonIconPos(acceptLabel ? acceptLabel.length : 6)
+    // PARA QUE NO SEA DEL TIPO E
+    // this.icon = new UIImage(this.button, useDarkTheme == true ? darkTheme : lightTheme)
+    // this.icon.width = 26
+    // this.icon.height = 26
+    // this.icon.hAlign = 'center'
+    // this.icon.vAlign = 'center'
+    // this.icon.isPointerBlocker = false
+    // setSection(this.icon, resources.buttonLabels.E)
+    // this.icon.positionX = buttonIconPos(acceptLabel ? acceptLabel.length : 6)
 
     this.buttonLabel = new UIText(this.button)
     this.buttonLabel.value = acceptLabel ? acceptLabel : 'Submit'
@@ -141,11 +142,14 @@ export class FillInPrompt extends Entity {
       this.accept(submittedText)
     })
 
-    this.EButtonAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.PRIMARY, false, e => {
-      if (this.button.visible && +Date.now() - this.UIOpenTime > 100) {
-        this.accept(submittedText)
-      }
-    })
+    // COMENTE PORQUE CUANDO TENES EL PUNTERO
+    // ARRIBA DEL UITEXTINPUT NO TE AGARRA LOS EVENTOS Y QUEDA RARO
+    // INCLUSO AL BUTTON1 y BUTTON2 LE CAMBIE EL ESTILO
+    // this.EButtonAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.PRIMARY, false, e => {
+    //   if (this.button.visible && +Date.now() - this.UIOpenTime > 100) {
+    //     this.accept(submittedText)
+    //   }
+    // })
   }
 
   /**
@@ -179,7 +183,7 @@ export class FillInPrompt extends Entity {
     this.text.visible = false
     this.buttonLabel.visible = false
     this.fillInBox.visible = false
-    Input.instance.unsubscribe('BUTTON_DOWN', ActionButton.PRIMARY, this.EButtonAction)
+    //Input.instance.unsubscribe('BUTTON_DOWN', ActionButton.PRIMARY, this.EButtonAction)
   }
 
   /**
@@ -192,6 +196,6 @@ export class FillInPrompt extends Entity {
     this.text.visible = true
     this.buttonLabel.visible = true
     this.fillInBox.visible = true
-    Input.instance.subscribe('BUTTON_DOWN', ActionButton.PRIMARY, false, this.EButtonAction)
+    //Input.instance.subscribe('BUTTON_DOWN', ActionButton.PRIMARY, false, this.EButtonAction)
   }
 }

@@ -1459,14 +1459,15 @@
             _this.button.width = 174;
             _this.button.height = 46;
             setSection(_this.button, resources.buttons.buttonE);
-            _this.icon = new UIImage(_this.button, useDarkTheme == true ? darkTheme : lightTheme);
-            _this.icon.width = 26;
-            _this.icon.height = 26;
-            _this.icon.hAlign = 'center';
-            _this.icon.vAlign = 'center';
-            _this.icon.isPointerBlocker = false;
-            setSection(_this.icon, resources.buttonLabels.E);
-            _this.icon.positionX = buttonIconPos(acceptLabel ? acceptLabel.length : 6);
+            // PARA QUE NO SEA DEL TIPO E
+            // this.icon = new UIImage(this.button, useDarkTheme == true ? darkTheme : lightTheme)
+            // this.icon.width = 26
+            // this.icon.height = 26
+            // this.icon.hAlign = 'center'
+            // this.icon.vAlign = 'center'
+            // this.icon.isPointerBlocker = false
+            // setSection(this.icon, resources.buttonLabels.E)
+            // this.icon.positionX = buttonIconPos(acceptLabel ? acceptLabel.length : 6)
             _this.buttonLabel = new UIText(_this.button);
             _this.buttonLabel.value = acceptLabel ? acceptLabel : 'Submit';
             _this.buttonLabel.hTextAlign = 'center';
@@ -1498,12 +1499,15 @@
             _this.button.onClick = new OnClick(function () {
                 _this.accept(submittedText);
             });
-            _this.EButtonAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.PRIMARY, false, function (e) {
-                if (_this.button.visible && +Date.now() - _this.UIOpenTime > 100) {
-                    _this.accept(submittedText);
-                }
-            });
             return _this;
+            // COMENTE PORQUE CUANDO TENES EL PUNTERO
+            // ARRIBA DEL UITEXTINPUT NO TE AGARRA LOS EVENTOS Y QUEDA RARO
+            // INCLUSO AL BUTTON1 y BUTTON2 LE CAMBIE EL ESTILO
+            // this.EButtonAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.PRIMARY, false, e => {
+            //   if (this.button.visible && +Date.now() - this.UIOpenTime > 100) {
+            //     this.accept(submittedText)
+            //   }
+            // })
         }
         /**
          * Hides the prompt from view in the screen.
@@ -1544,7 +1548,7 @@
             this.text.visible = false;
             this.buttonLabel.visible = false;
             this.fillInBox.visible = false;
-            Input.instance.unsubscribe('BUTTON_DOWN', ActionButton.PRIMARY, this.EButtonAction);
+            //Input.instance.unsubscribe('BUTTON_DOWN', ActionButton.PRIMARY, this.EButtonAction)
         };
         /**
          * Makes an invisible prompt visible again.
@@ -1556,7 +1560,7 @@
             this.text.visible = true;
             this.buttonLabel.visible = true;
             this.fillInBox.visible = true;
-            Input.instance.subscribe('BUTTON_DOWN', ActionButton.PRIMARY, false, this.EButtonAction);
+            //Input.instance.subscribe('BUTTON_DOWN', ActionButton.PRIMARY, false, this.EButtonAction)
         };
         return FillInPrompt;
     }(Entity));
